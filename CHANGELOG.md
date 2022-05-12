@@ -3,6 +3,7 @@
 ## [Unreleased][unreleased]
 
 - First simple implementation
+- Implement Math namespace
 
 ## [0.0.0][] - 2022-05-12
 
