@@ -1,6 +1,6 @@
 {
   "name": "metacalc",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "license": "MIT",
   "description": "Spreadsheet calculations for Metarhia",
@@ -17,7 +17,7 @@
     "metacalc.d.ts"
   ],
   "engines": {
-    "node": "^12.9 || 14 || 16 || 17"
+    "node": "^12.9 || 14 || 16 || 17 || 18"
   },
   "repository": {
     "type": "git",
