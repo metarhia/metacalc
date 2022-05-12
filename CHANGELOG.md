@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- First simple implementation
+
 ## [0.0.0][] - 2022-05-12
 
 - Library stucture
