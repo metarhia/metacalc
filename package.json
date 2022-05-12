@@ -1,0 +1,52 @@
+{
+  "name": "metacalc",
+  "version": "0.0.0",
+  "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
+  "license": "MIT",
+  "description": "Spreadsheet calculations for Metarhia",
+  "keywords": [
+    "node.js",
+    "metarhia",
+    "spreadsheet",
+    "spreadsheets"
+  ],
+  "main": "metacalc.js",
+  "types": "metacalc.d.ts",
+  "files": [
+    "lib/",
+    "metacalc.d.ts"
+  ],
+  "engines": {
+    "node": "^12.9 || 14 || 16 || 17"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metarhia/metacalc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/metarhia/metacalc/issues",
+    "email": "timur.shemsedinov@gmail.com"
+  },
+  "homepage": "https://metarhia.com",
+  "funding": {
+    "type": "patreon",
+    "url": "https://www.patreon.com/tshemsedinov"
+  },
+  "scripts": {
+    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\" \"**/*.ts\"",
+    "types": "tsc -p tsconfig.json",
+    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\" \"**/*.ts\"",
+    "test": "npm run lint && npm run types && metatests test/unit.js"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.25",
+    "eslint": "^8.13.0",
+    "eslint-config-metarhia": "^7.0.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "metatests": "^0.8.2",
+    "prettier": "^2.6.2",
+    "typescript": "^4.6.3"
+  }
+}
