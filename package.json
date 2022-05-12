@@ -48,5 +48,8 @@
     "metatests": "^0.8.2",
     "prettier": "^2.6.2",
     "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "metavm": "^1.1.0"
   }
 }

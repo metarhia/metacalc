@@ -8,7 +8,6 @@ metatests.test('Sheet tests stub', async (test) => {
   sheet.cells['A1'] = 100;
   sheet.cells['B1'] = 2;
   sheet.cells['C1'] = '=A1*B1';
-  sheet.values['C1'] = sheet.cells['A1'] * sheet.cells['B1'];
   test.strictSame(sheet.values['C1'], 200);
   test.end();
 });
