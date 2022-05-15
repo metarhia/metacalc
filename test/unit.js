@@ -48,3 +48,19 @@ metatests.test('JavaScript Math', async (test) => {
   test.strictSame(sheet.values['I1'], Math.sin(Math.sqrt(Math.pow(100, -2))));
   test.end();
 });
+
+metatests.test('Prevent arbitrary js code execution', async (test) => {
+  const sheet = new Sheet();
+  sheet.cells['A1'] =
+    '=Math.constructor.constructor("console.log(\\"Hello, World!\\")")();';
+  try {
+    const res = sheet.values['A1'];
+    test.strictSame(res, undefined);
+  } catch (error) {
+    test.strictSame(
+      error.message,
+      `Cannot read property '${'constructor'}' of null`
+    );
+  }
+  test.end();
+});
