@@ -39,6 +39,7 @@ metatests.test('JavaScript Math', async (test) => {
   sheet.cells['G1'] = '=Math.sin(A1)';
   sheet.cells['H1'] = '=Math.sqrt(A1)';
   sheet.cells['I1'] = '=Math.sin(Math.sqrt(Math.pow(A1, B1)))';
+  sheet.cells['J1'] = '=Math.PI * Math.E * Math.LN2 * Math.LN10';
   test.strictSame(sheet.values['C1'], 2);
   test.strictSame(sheet.values['D1'], Math.exp(100));
   test.strictSame(sheet.values['E1'], 100);
@@ -46,6 +47,7 @@ metatests.test('JavaScript Math', async (test) => {
   test.strictSame(sheet.values['G1'], Math.sin(100));
   test.strictSame(sheet.values['H1'], Math.sqrt(100));
   test.strictSame(sheet.values['I1'], Math.sin(Math.sqrt(Math.pow(100, -2))));
+  test.strictSame(sheet.values['J1'], Math.PI * Math.E * Math.LN2 * Math.LN10);
   test.end();
 });
 
