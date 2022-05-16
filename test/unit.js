@@ -112,7 +112,6 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
     sheet.values['A1'];
     test.fail('Vulnerability works');
   } catch (error) {
-    console.log(error);
     test.strictSame(error.constructor.name === 'TypeError', true);
   }
 
