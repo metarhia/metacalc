@@ -61,6 +61,33 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
   }
 
   sheet.cells['A1'] =
+    '=this.data.constructor.constructor("console.log(\\"Hello, World!\\")")();';
+  try {
+    sheet.values['A1'];
+  } catch (error) {
+    console.log(error);
+    test.strictSame(error.constructor.name === 'TypeError', true);
+  }
+
+  sheet.cells['A1'] =
+    '=this.constructor.constructor("console.log(\\"Hello, World!\\")")();';
+  try {
+    sheet.values['A1'];
+  } catch (error) {
+    console.log(error);
+    test.strictSame(error.constructor.name === 'TypeError', true);
+  }
+
+  sheet.cells['A1'] = `=Reflect.get(this, "constructor")
+    .constructor("console.log(\\"Hello, World!\\")")();`;
+  try {
+    sheet.values['A1'];
+  } catch (error) {
+    console.log(error);
+    test.strictSame(error.constructor.name === 'TypeError', true);
+  }
+
+  sheet.cells['A1'] =
     '=Object.constructor.constructor("console.log(\\"Hello, World!\\")")();';
   try {
     sheet.values['A1'];
