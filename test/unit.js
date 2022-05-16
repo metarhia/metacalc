@@ -65,7 +65,6 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
   try {
     sheet.values['A1'];
   } catch (error) {
-    console.log(error);
     test.strictSame(error.constructor.name === 'TypeError', true);
   }
 
@@ -74,7 +73,6 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
   try {
     sheet.values['A1'];
   } catch (error) {
-    console.log(error);
     test.strictSame(error.constructor.name === 'TypeError', true);
   }
 
@@ -83,7 +81,6 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
   try {
     sheet.values['A1'];
   } catch (error) {
-    console.log(error);
     test.strictSame(error.constructor.name === 'TypeError', true);
   }
 
