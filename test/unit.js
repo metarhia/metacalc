@@ -51,16 +51,29 @@ metatests.test('JavaScript Math', async (test) => {
 
 metatests.test('Prevent arbitrary js code execution', async (test) => {
   const sheet = new Sheet();
+
   sheet.cells['A1'] =
     '=Math.constructor.constructor("console.log(\\"Hello, World!\\")")();';
   try {
-    const res = sheet.values['A1'];
-    test.strictSame(res, undefined);
+    sheet.values['A1'];
   } catch (error) {
-    test.strictSame(
-      error.message,
-      `Cannot read property '${'constructor'}' of null`
-    );
+    test.strictSame(error.constructor.name === 'TypeError', true);
+  }
+
+  sheet.cells['A1'] =
+    '=Object.constructor.constructor("console.log(\\"Hello, World!\\")")();';
+  try {
+    sheet.values['A1'];
+  } catch (error) {
+    test.strictSame(error.constructor.name === 'TypeError', true);
+  }
+
+  sheet.cells['A1'] =
+    '=({}).constructor.constructor("console.log(\\"Hello, World!\\")")();';
+  try {
+    sheet.values['A1'];
+  } catch (error) {
+    test.strictSame(error.constructor.name === 'TypeError', true);
   }
   test.end();
 });
