@@ -58,7 +58,7 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
     '=Math.constructor.constructor("console.log(\\"Hello, World!\\")")();';
   try {
     sheet.values['A1'];
-    test.fail('Vulnerability works');
+    test.fail();
   } catch (error) {
     test.strictSame(error.constructor.name === 'TypeError', true);
   }
@@ -67,7 +67,7 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
     '=this.data.constructor.constructor("console.log(\\"Hello, World!\\")")();';
   try {
     sheet.values['A1'];
-    test.fail('Vulnerability works');
+    test.fail();
   } catch (error) {
     test.strictSame(error.constructor.name === 'TypeError', true);
   }
@@ -76,7 +76,7 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
     '=this.constructor.constructor("console.log(\\"Hello, World!\\")")();';
   try {
     sheet.values['A1'];
-    test.fail('Vulnerability works');
+    test.fail();
   } catch (error) {
     test.strictSame(error.constructor.name === 'TypeError', true);
   }
@@ -85,7 +85,7 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
     .constructor("console.log(\\"Hello, World!\\")")();`;
   try {
     sheet.values['A1'];
-    test.fail('Vulnerability works');
+    test.fail();
   } catch (error) {
     test.strictSame(error.constructor.name === 'TypeError', true);
   }
@@ -94,7 +94,7 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
     '=Object.constructor.constructor("console.log(\\"Hello, World!\\")")();';
   try {
     sheet.values['A1'];
-    test.fail('Vulnerability works');
+    test.fail();
   } catch (error) {
     test.strictSame(error.constructor.name === 'TypeError', true);
   }
@@ -103,16 +103,16 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
     '=({}).constructor.constructor("console.log(\\"Hello, World!\\")")();';
   try {
     sheet.values['A1'];
-    test.fail('Vulnerability works');
+    test.fail();
   } catch (error) {
-    test.strictSame(error.constructor.name === 'TypeError', true);
+    test.strictSame(error.constructor.name === 'EvalError', true);
   }
 
   sheet.cells['A1'] =
     '=Math.ceil.constructor("console.log(\\"Hello, World!\\")")();';
   try {
     sheet.values['A1'];
-    test.fail('Vulnerability works');
+    test.fail();
   } catch (error) {
     test.strictSame(error.constructor.name === 'TypeError', true);
   }

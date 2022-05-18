@@ -23,6 +23,6 @@ console.log({ sheet });
 
 ## License & Contributors
 
-Copyright (c) 2022 [Metarhia contributors](https://github.com/metarhia/metacalc/graphs/contributors).
+Copyright (c) 2022 [Metarhia contributors](https://github.com/metarhia/metacalc/blob/master/AUTHORS).
 Metacalc is [MIT licensed](./LICENSE).\
 Metacalc is a part of [Metarhia](https://github.com/metarhia) technology stack.
