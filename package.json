@@ -17,7 +17,7 @@
     "metacalc.d.ts"
   ],
   "engines": {
-    "node": "14 || 16 || 17 || 18"
+    "node": "14 || 16 || 18"
   },
   "repository": {
     "type": "git",
