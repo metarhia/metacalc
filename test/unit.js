@@ -51,6 +51,16 @@ metatests.test('JavaScript Math', async (test) => {
   test.end();
 });
 
+metatests.test('Non-table identifiers', async (test) => {
+  const sheet = new Sheet();
+  sheet.cells['item1.price'] = 100;
+  sheet.cells['item2.price'] = 200;
+  sheet.cells['item3.price'] = 300;
+  sheet.cells['total'] = '=item1.price + item2.price + item3.price';
+  test.strictSame(sheet.values['total'], 600);
+  test.end();
+});
+
 metatests.test('Prevent arbitrary js code execution', async (test) => {
   const sheet = new Sheet();
 
