@@ -51,6 +51,25 @@ metatests.test('JavaScript Math', async (test) => {
   test.end();
 });
 
+metatests.test('Correct cell values', async (test) => {
+  const sheet = new Sheet();
+  sheet.cells['A1'] = 20;
+
+  sheet.cells['B1'] = 100;
+  test.equal(sheet.values['B1'], 100);
+
+  sheet.cells['B1'] = '=Math.pow(A1, 2)';
+  test.equal(sheet.values['B1'], Math.pow(20, 2));
+
+  sheet.cells['B1'] = 30;
+  test.equal(sheet.values['B1'], 30);
+
+  sheet.cells['B1'] = 'value';
+  test.equal(sheet.values['B1'], 'value');
+
+  test.end();
+});
+
 metatests.test('Prevent arbitrary js code execution', async (test) => {
   const sheet = new Sheet();
 
