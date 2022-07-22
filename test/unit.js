@@ -59,18 +59,10 @@ metatests.test('Correct cell values', async (test) => {
   test.strictEqual(sheet.values['B1'], 100, 'Correct simple value');
 
   sheet.cells['B1'] = '=Math.pow(A1, 2)';
-  test.strictEqual(
-    sheet.values['B1'],
-    Math.pow(20, 2),
-    'Correct cell value after expression',
-  );
+  test.strictEqual(sheet.values['B1'], Math.pow(20, 2));
 
   sheet.cells['B1'] = 30;
-  test.strictEqual(
-    sheet.values['B1'],
-    30,
-    'Correct cell value after siple value',
-  );
+  test.strictEqual(sheet.values['B1'], 30);
 
   sheet.cells['B1'] = 'value';
   test.strictEqual(sheet.values['B1'], 'value');
