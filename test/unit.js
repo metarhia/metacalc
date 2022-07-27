@@ -32,7 +32,7 @@ metatests.test('Recursive expressions', async (test) => {
   const sheet = new Sheet();
   sheet.cells['A1'] = 100;
   sheet.cells['B1'] = 2;
-  sheet.cells['C1'] = '= A1 === 100 ? A1 * (A1 = 1, E1) : 5';
+  sheet.cells['C1'] = '= A1 *E1';
   sheet.cells['D1'] = '=C1+8';
   sheet.cells['E1'] = '=D1/2';
 
@@ -49,6 +49,19 @@ metatests.test('Recursive expressions', async (test) => {
     test.strictSame(error.constructor.name === 'Error', true);
     test.strictSame(error.message, 'Recursive expression error');
   }
+  test.end();
+});
+
+metatests.test('Exit from recursive expression', async (test) => {
+  const sheet = new Sheet();
+  sheet.cells['A1'] = 100;
+  sheet.cells['B1'] = 2;
+  sheet.cells['C1'] = '= A1 === 100 ? A1 * (A1 = 1, E1) : 5';
+  sheet.cells['D1'] = '=C1+8';
+  sheet.cells['E1'] = '=D1/2';
+
+  test.strictSame(sheet.values['D1'], 650);
+
   test.end();
 });
 
