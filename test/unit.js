@@ -60,12 +60,7 @@ metatests.test('Exit from recursive expression', async (test) => {
   sheet.cells['D1'] = '=C1+8';
   sheet.cells['E1'] = '=D1/2';
 
-  try {
-    test.strictSame(sheet.values['E1'], 650);
-  } catch (error) {
-    test.strictSame(error.constructor.name === 'Error', true);
-    test.strictSame(error.message, 'Recursive expression error');
-  }
+  test.strictSame(sheet.values['D1'], 650);
 
   test.end();
 });
