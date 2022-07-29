@@ -3,6 +3,7 @@
 ## [Unreleased][unreleased]
 
 - Prevent arbitrary js code execution
+- Implement unknown identifier hook
 
 ## [0.0.1][] - 2022-05-13
 
