@@ -3,6 +3,7 @@
 ## [Unreleased][unreleased]
 
 - Prevent arbitrary js code execution
+- Handle recursive expressions
 
 ## [0.0.1][] - 2022-05-13
 

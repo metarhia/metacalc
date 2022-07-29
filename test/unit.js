@@ -28,6 +28,47 @@ metatests.test('Expression chain', async (test) => {
   test.end();
 });
 
+metatests.test('Recursive expressions', async (test) => {
+  const sheet = new Sheet();
+  sheet.cells['A1'] = 100;
+  sheet.cells['B1'] = 2;
+  sheet.cells['C1'] = '= A1 *E1';
+  sheet.cells['D1'] = '=C1+8';
+  sheet.cells['E1'] = '=D1/2';
+
+  try {
+    test.strictSame(sheet.values['D1'], 208);
+  } catch (error) {
+    test.strictSame(error.constructor.name === 'Error', true);
+    test.strictSame(error.message, 'Recursive expression error');
+  }
+
+  try {
+    test.strictSame(sheet.values['E1'], 104);
+  } catch (error) {
+    test.strictSame(error.constructor.name === 'Error', true);
+    test.strictSame(error.message, 'Recursive expression error');
+  }
+  test.end();
+});
+
+metatests.test(
+  'Exit from recursive expression use Math.random',
+  async (test) => {
+    const sheet = new Sheet();
+    sheet.cells['A1'] = 100;
+    sheet.cells['B1'] = 2;
+    sheet.cells['C1'] = '=Math.round(Math.random()) ? A1 * E1 : 5';
+    sheet.cells['D1'] = '=C1+8';
+    sheet.cells['E1'] = '=D1/2';
+
+    const D1 = sheet.values['D1'];
+    test.strictSame(!(D1 & 0) || D1 === 13, true);
+
+    test.end();
+  },
+);
+
 metatests.test('JavaScript Math', async (test) => {
   const sheet = new Sheet();
   sheet.cells['A1'] = 100;
