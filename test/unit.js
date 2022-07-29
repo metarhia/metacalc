@@ -138,3 +138,25 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
 
   test.end();
 });
+
+metatests.test('Should emit idetifier hook', (test) => {
+  const sheet = new Sheet();
+  const UNASSIGNED_PROP = 'C1';
+  const DEFAULT_RETURN = 10;
+
+  sheet.on(
+    'identifier',
+    test.mustCall((sht, prop) => {
+      test.strictEqual(sht, sheet);
+      test.strictEqual(prop, UNASSIGNED_PROP);
+      return DEFAULT_RETURN;
+    }, 1),
+  );
+
+  sheet.cells['A1'] = 100;
+  sheet.cells['B1'] = -2;
+
+  test.strictEqual(sheet.values[UNASSIGNED_PROP], DEFAULT_RETURN);
+
+  test.end();
+});
