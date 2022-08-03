@@ -85,6 +85,20 @@ metatests.test('Non-table identifiers', async (test) => {
   test.end();
 });
 
+metatests.test(
+  'Read undefined property in non-table identifier',
+  async (test) => {
+    const sheet = new Sheet();
+    sheet.cells['item.price'] = 100;
+    sheet.cells['item.quantity'] = 2;
+    sheet.cells['item.total'] =
+      '=item.price * item.quantity * (item.discount ?? 1)';
+    test.strictSame(sheet.values['item.total'], 200);
+
+    test.end();
+  },
+);
+
 metatests.test('Prevent arbitrary js code execution', async (test) => {
   const sheet = new Sheet();
 
