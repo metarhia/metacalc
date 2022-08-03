@@ -77,6 +77,11 @@ metatests.test('Non-table identifiers', async (test) => {
   sheet.cells['item3.price'] = 300;
   sheet.cells['total'] = '=item1.price + item2.price + item3.price';
   test.strictSame(sheet.values['total'], 600);
+
+  sheet.cells['item3'] = 42;
+  test.strictSame(sheet.values['item3'], 42);
+  test.strictSame(sheet.values['total'], NaN);
+
   test.end();
 });
 
