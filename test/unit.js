@@ -138,3 +138,30 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
 
   test.end();
 });
+
+metatests.test('Keeping expression sources', async (test) => {
+  const sheet = new Sheet();
+  sheet.cells['A1'] = 100;
+  sheet.cells['B1'] = -2;
+  sheet.cells['C1'] = '=(A1 / B1) - 5';
+  sheet.cells['D1'] = '=Math.exp(A1)';
+  sheet.cells['E1'] = '=Math.sin(Math.sqrt(Math.pow(A1, B1)))';
+
+  test.strictEqual(
+    sheet.cells['C1'].source,
+    '=(A1 / B1) - 5',
+    'Correct expression source',
+  );
+  test.strictEqual(
+    sheet.cells['D1'].source,
+    '=Math.exp(A1)',
+    'Correct expression source',
+  );
+  test.strictEqual(
+    sheet.cells['E1'].source,
+    '=Math.sin(Math.sqrt(Math.pow(A1, B1)))',
+    'Correct expression source',
+  );
+
+  test.end();
+});
