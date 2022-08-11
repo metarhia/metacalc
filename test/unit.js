@@ -158,3 +158,36 @@ metatests.test('Should emit idetifier hook', (test) => {
 
   test.end();
 });
+
+metatests.test(
+  'Multiple identifier hooks must handle first non undefined value',
+  (test) => {
+    const sheet = new Sheet();
+
+    sheet.on(
+      'identifier',
+      test.mustCall((prop) => {
+        if (prop === 'A0') return 1;
+        return undefined;
+      }, 3),
+    );
+
+    sheet.on(
+      'identifier',
+      test.mustCall((prop) => {
+        if (prop === 'A1') return 2;
+        return undefined;
+      }, 2),
+    );
+
+    test.strictEqual(sheet.values['A0'], 1, 'Value from first subscription');
+    test.strictEqual(sheet.values['A1'], 2, 'Value from second subscription');
+    test.strictEqual(
+      sheet.values['A2'],
+      undefined,
+      'Not handled value equals undefined',
+    );
+
+    test.end();
+  },
+);
