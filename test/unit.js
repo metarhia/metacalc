@@ -144,7 +144,7 @@ metatests.test('Should emit idetifier hook', (test) => {
 
   sheet.on(
     'identifier',
-    test.mustCall((sht, prop) => {
+    test.mustCall((prop, sht) => {
       test.strictEqual(sht, sheet);
       test.strictEqual(prop, 'C1');
       return 3;
