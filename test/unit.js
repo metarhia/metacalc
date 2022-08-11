@@ -67,6 +67,15 @@ metatests.test('Correct cell values', async (test) => {
   sheet.cells['B1'] = 'value';
   test.strictEqual(sheet.values['B1'], 'value');
 
+  sheet.cells['B1'] = '=(7 / 2).toFixed(2)';
+  test.strictEqual(sheet.values['B1'], '3.50');
+
+  sheet.cells['B1'] = '=+(10 / 3).toFixed(4)';
+  test.strictEqual(sheet.values['B1'], 3.3333);
+
+  sheet.cells['B1'] = '=+(Math.PI).toFixed(2)';
+  test.strictEqual(sheet.values['B1'], 3.14);
+
   test.end();
 });
 
