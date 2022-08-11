@@ -67,6 +67,15 @@ metatests.test('Correct cell values', async (test) => {
   sheet.cells['B1'] = 'value';
   test.strictEqual(sheet.values['B1'], 'value');
 
+  sheet.cells['B1'] = '=(7 / 2).toFixed(2)';
+  test.strictEqual(sheet.values['B1'], '3.50');
+
+  sheet.cells['B1'] = '=+(10 / 3).toFixed(4)';
+  test.strictEqual(sheet.values['B1'], 3.3333);
+
+  sheet.cells['B1'] = '=+(Math.PI).toFixed(2)';
+  test.strictEqual(sheet.values['B1'], 3.14);
+
   test.end();
 });
 
@@ -182,6 +191,86 @@ metatests.test('Prevent arbitrary js code execution', async (test) => {
   } catch (error) {
     test.strictSame(error.constructor.name === 'TypeError', true);
   }
+
+  test.end();
+});
+
+metatests.test('Should emit idetifier hook', (test) => {
+  const sheet = new Sheet();
+
+  sheet.on(
+    'identifier',
+    test.mustCall((prop, sht) => {
+      test.strictEqual(sht, sheet);
+      test.strictEqual(prop, 'C1');
+      return 3;
+    }, 1),
+  );
+
+  sheet.cells['A1'] = 100;
+  sheet.cells['B1'] = -2;
+  sheet.cells['D1'] = '= A1 + B1 + C1';
+  test.strictEqual(sheet.values['D1'], 101);
+
+  test.end();
+});
+
+metatests.test(
+  'Multiple identifier hooks must handle first non undefined value',
+  (test) => {
+    const sheet = new Sheet();
+
+    sheet.on(
+      'identifier',
+      test.mustCall((prop) => {
+        if (prop === 'A0') return 1;
+        return undefined;
+      }, 3),
+    );
+
+    sheet.on(
+      'identifier',
+      test.mustCall((prop) => {
+        if (prop === 'A1') return 2;
+        return undefined;
+      }, 2),
+    );
+
+    test.strictEqual(sheet.values['A0'], 1, 'Value from first subscription');
+    test.strictEqual(sheet.values['A1'], 2, 'Value from second subscription');
+    test.strictEqual(
+      sheet.values['A2'],
+      undefined,
+      'Not handled value equals undefined',
+    );
+
+    test.end();
+  },
+);
+
+metatests.test('Keeping expression sources', async (test) => {
+  const sheet = new Sheet();
+  sheet.cells['A1'] = 100;
+  sheet.cells['B1'] = -2;
+  sheet.cells['C1'] = '=(A1 / B1) - 5';
+  sheet.cells['D1'] = '=Math.exp(A1)';
+  sheet.cells['E1'] = '=Math.sin(Math.sqrt(Math.pow(A1, B1)))';
+
+  test.strictEqual(
+    sheet.cells['C1'].source,
+    '=(A1 / B1) - 5',
+    'Correct expression source',
+  );
+  test.strictEqual(
+    sheet.cells['D1'].source,
+    '=Math.exp(A1)',
+    'Correct expression source',
+  );
+  test.strictEqual(
+    sheet.cells['E1'].source,
+    '=Math.sin(Math.sqrt(Math.pow(A1, B1)))',
+    'Correct expression source',
+  );
 
   test.end();
 });
