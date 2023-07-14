@@ -1,5 +1,5 @@
-import { EventEmitter } from 'events';
-import { Context } from 'vm';
+import { EventEmitter } from 'node:events';
+import { Context } from 'node:vm';
 
 export interface Sheet extends EventEmitter {
   data: Map<string, string | number>;
