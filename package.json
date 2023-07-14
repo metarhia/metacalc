@@ -4,20 +4,12 @@
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "license": "MIT",
   "description": "Spreadsheet calculations for Metarhia",
-  "keywords": [
-    "node.js",
-    "metarhia",
-    "spreadsheet",
-    "spreadsheets"
-  ],
+  "keywords": ["node.js", "metarhia", "spreadsheet", "spreadsheets"],
   "main": "metacalc.js",
   "types": "metacalc.d.ts",
-  "files": [
-    "lib/",
-    "metacalc.d.ts"
-  ],
+  "files": ["lib/", "metacalc.d.ts"],
   "engines": {
-    "node": "14 || 16 || 18"
+    "node": "16 || 18 || 19 || 20"
   },
   "repository": {
     "type": "git",
