@@ -177,7 +177,8 @@ metatests.test(
       'identifier',
       test.mustCall((prop) => {
         if (prop === 'A0') return 1;
-        return undefined;
+        const res = undefined;
+        return res;
       }, 3),
     );
 
@@ -185,7 +186,8 @@ metatests.test(
       'identifier',
       test.mustCall((prop) => {
         if (prop === 'A1') return 2;
-        return undefined;
+        const res = undefined;
+        return res;
       }, 2),
     );
 
