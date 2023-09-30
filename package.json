@@ -9,7 +9,7 @@
   "types": "metacalc.d.ts",
   "files": ["lib/", "metacalc.d.ts"],
   "engines": {
-    "node": "16 || 18 || 19 || 20"
+    "node": "18 || 20"
   },
   "repository": {
     "type": "git",
