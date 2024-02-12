@@ -79,6 +79,53 @@ metatests.test('Correct cell values', async (test) => {
   test.end();
 });
 
+metatests.test('Non-table identifiers', async (test) => {
+  const sheet = new Sheet();
+  sheet.cells['item1.price'] = 100;
+  sheet.cells['item2.price'] = 200;
+  sheet.cells['item3.price'] = 300;
+  sheet.cells['total'] = '=item1.price + item2.price + item3.price';
+  test.strictSame(sheet.values['total'], 600);
+
+  sheet.cells['item3'] = 42;
+  test.strictSame(sheet.values['item3'], 42);
+  test.strictSame(sheet.values['total'], NaN);
+
+  sheet.cells['item3.price'] = 300;
+  test.strictSame(sheet.values['total'], 600);
+
+  test.end();
+});
+
+metatests.test(
+  'Read undefined property in non-table identifier',
+  async (test) => {
+    const sheet = new Sheet();
+    sheet.cells['item.price'] = 100;
+    sheet.cells['item.quantity'] = 2;
+    sheet.cells['item.total'] =
+      '=item.price * item.quantity * (item.discount ?? 1)';
+    test.strictSame(sheet.values['item.total'], 200);
+
+    sheet.cells['item.discount'] = 0.5;
+    test.strictSame(sheet.values['item.total'], 100);
+
+    test.end();
+  },
+);
+
+metatests.test('Read non-table expressions', async (test) => {
+  const sheet = new Sheet();
+  sheet.cells['item.basePrice'] = 100;
+  sheet.cells['item.discount'] = 0.5;
+  sheet.cells['item.price'] = '=item.basePrice * item.discount';
+  sheet.cells['item.quantity'] = 2;
+  sheet.cells['item.total'] = '=item.price * item.quantity';
+  test.strictSame(sheet.values['item.total'], 100);
+
+  test.end();
+});
+
 metatests.test('Prevent arbitrary js code execution', async (test) => {
   const sheet = new Sheet();
 
