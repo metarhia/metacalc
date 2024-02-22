@@ -2,6 +2,7 @@
 
 const metatests = require('metatests');
 const { Sheet } = require('..');
+//const { error } = require('console');
 
 metatests.test('Simple expressions', async (test) => {
   const sheet = new Sheet();
@@ -82,69 +83,40 @@ metatests.test('Correct cell values', async (test) => {
 metatests.test('Prevent arbitrary js code execution', async (test) => {
   const sheet = new Sheet();
 
+  sheet.on('error', (error) => {
+    test.strictSame(error.constructor.name === 'TypeError', true);
+  });
+
   sheet.cells['A1'] =
     '=Math.constructor.constructor("console.log(\\"Hello, World!\\")")();';
-  try {
-    sheet.values['A1'];
-    test.fail();
-  } catch (error) {
-    test.strictSame(error.constructor.name === 'TypeError', true);
-  }
+  sheet.values['A1'];
 
   sheet.cells['A1'] =
     '=this.data.constructor.constructor("console.log(\\"Hello, World!\\")")();';
-  try {
-    sheet.values['A1'];
-    test.fail();
-  } catch (error) {
-    test.strictSame(error.constructor.name === 'TypeError', true);
-  }
+  sheet.values['A1'];
 
   sheet.cells['A1'] =
     '=this.constructor.constructor("console.log(\\"Hello, World!\\")")();';
-  try {
-    sheet.values['A1'];
-    test.fail();
-  } catch (error) {
-    test.strictSame(error.constructor.name === 'TypeError', true);
-  }
+  sheet.values['A1'];
 
   sheet.cells['A1'] = `=Reflect.get(this, "constructor")
     .constructor("console.log(\\"Hello, World!\\")")();`;
-  try {
-    sheet.values['A1'];
-    test.fail();
-  } catch (error) {
-    test.strictSame(error.constructor.name === 'TypeError', true);
-  }
+  sheet.values['A1'];
 
   sheet.cells['A1'] =
     '=Object.constructor.constructor("console.log(\\"Hello, World!\\")")();';
-  try {
-    sheet.values['A1'];
-    test.fail();
-  } catch (error) {
-    test.strictSame(error.constructor.name === 'TypeError', true);
-  }
-
-  sheet.cells['A1'] =
-    '=({}).constructor.constructor("console.log(\\"Hello, World!\\")")();';
-  try {
-    sheet.values['A1'];
-    test.fail();
-  } catch (error) {
-    test.strictSame(error.constructor.name === 'EvalError', true);
-  }
+  sheet.values['A1'];
 
   sheet.cells['A1'] =
     '=Math.ceil.constructor("console.log(\\"Hello, World!\\")")();';
-  try {
-    sheet.values['A1'];
-    test.fail();
-  } catch (error) {
-    test.strictSame(error.constructor.name === 'TypeError', true);
-  }
-
+  sheet.values['A1'];
+  sheet.cells['A1'] =
+    '=({}).constructor.constructor("console.log(\\"Hello, World!\\")")();';
+  sheet.removeAllListeners('error');
+  sheet.on('error', (error) => {
+    test.strictSame(error.constructor.name === 'EvalError', true);
+  });
+  sheet.values['A1'];
   test.end();
 });
 
@@ -227,5 +199,32 @@ metatests.test('Keeping expression sources', async (test) => {
     'Correct expression source',
   );
 
+  test.end();
+});
+
+metatests.test('Handled error', async (test) => {
+  const sheet = new Sheet();
+  sheet.on('error', (error, sheet) => {
+    test.strictSame(error.constructor.name === 'SyntaxError', true);
+    test.strictSame(sheet, sheet);
+  });
+  sheet.cells['A1'] = '(-:';
+  sheet.removeAllListeners('error');
+  sheet.on('error', (error, sheet) => {
+    test.strictSame(error.constructor.name === 'ReferenceError', true);
+    test.strictSame(sheet, sheet);
+  });
+  sheet.cells['A1'] = '=A2';
+  test.end();
+});
+
+metatests.test('Unhandled error', async (test) => {
+  const sheet = new Sheet();
+  try {
+    sheet.cells['A1'] = '(-:';
+  } catch (error) {
+    test.strictSame(error.constructor.name === 'SyntaxError', true);
+    test.fail();
+  }
   test.end();
 });
