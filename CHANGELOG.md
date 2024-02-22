@@ -4,6 +4,7 @@
 
 - Prevent arbitrary js code execution
 - Implement unknown identifier hook
+- Add error handler
 
 ## [0.0.1][] - 2022-05-13
 
