@@ -2,7 +2,6 @@
 
 const metatests = require('metatests');
 const { Sheet } = require('..');
-//const { error } = require('console');
 
 metatests.test('Simple expressions', async (test) => {
   const sheet = new Sheet();
