@@ -33,10 +33,10 @@
     "url": "https://www.patreon.com/tshemsedinov"
   },
   "scripts": {
-    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\" \"**/*.ts\"",
+    "test": "npm run lint && npm run types && metatests test/unit.js",
     "types": "tsc -p tsconfig.json",
-    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\" \"**/*.ts\"",
-    "test": "npm run lint && npm run types && metatests test/unit.js"
+    "lint": "eslint . && prettier --check \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.ts\"",
+    "fix": "eslint . --fix && prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.ts\""
   },
   "devDependencies": {
     "@types/node": "^22.3.0",
