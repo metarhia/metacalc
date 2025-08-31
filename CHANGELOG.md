@@ -2,6 +2,12 @@
 
 ## [Unreleased][unreleased]
 
+## [0.0.4][] - 2025-08-31
+
+- Update dependencies
+- Update CI workflow
+- Use node.js native test runner instead of metatests
+
 ## [0.0.3][] - 2024-09-02
 
 - Update eslint to 9.x and prettier with configs
@@ -21,7 +27,8 @@
 
 - Library stucture
 
-[unreleased]: https://github.com/metarhia/metacalc/compare/v0.0.3...HEAD
+[unreleased]: https://github.com/metarhia/metacalc/compare/v0.0.4...HEAD
+[0.0.4]: https://github.com/metarhia/metacalc/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/metarhia/metacalc/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/metarhia/metacalc/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/metarhia/metacalc/compare/v0.0.0...v0.0.1
