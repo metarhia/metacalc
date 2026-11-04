@@ -91,7 +91,7 @@ test('Prevent arbitrary js code execution', async () => {
     sheet.values['A1'];
     assert.fail('Should have thrown an error');
   } catch (error) {
-    assert.strictEqual(error.constructor.name === 'TypeError', true);
+    assert.strictEqual(error.constructor.name, 'TypeError');
   }
 
   sheet.cells['A1'] =
@@ -100,7 +100,7 @@ test('Prevent arbitrary js code execution', async () => {
     sheet.values['A1'];
     assert.fail('Should have thrown an error');
   } catch (error) {
-    assert.strictEqual(error.constructor.name === 'TypeError', true);
+    assert.strictEqual(error.constructor.name, 'TypeError');
   }
 
   sheet.cells['A1'] =
@@ -109,7 +109,7 @@ test('Prevent arbitrary js code execution', async () => {
     sheet.values['A1'];
     assert.fail('Should have thrown an error');
   } catch (error) {
-    assert.strictEqual(error.constructor.name === 'TypeError', true);
+    assert.strictEqual(error.constructor.name, 'TypeError');
   }
 
   sheet.cells['A1'] = `=Reflect.get(this, "constructor")
@@ -118,7 +118,7 @@ test('Prevent arbitrary js code execution', async () => {
     sheet.values['A1'];
     assert.fail('Should have thrown an error');
   } catch (error) {
-    assert.strictEqual(error.constructor.name === 'TypeError', true);
+    assert.strictEqual(error.constructor.name, 'TypeError');
   }
 
   sheet.cells['A1'] =
@@ -127,7 +127,7 @@ test('Prevent arbitrary js code execution', async () => {
     sheet.values['A1'];
     assert.fail('Should have thrown an error');
   } catch (error) {
-    assert.strictEqual(error.constructor.name === 'TypeError', true);
+    assert.strictEqual(error.constructor.name, 'TypeError');
   }
 
   sheet.cells['A1'] =
@@ -136,7 +136,7 @@ test('Prevent arbitrary js code execution', async () => {
     sheet.values['A1'];
     assert.fail('Should have thrown an error');
   } catch (error) {
-    assert.strictEqual(error.constructor.name === 'EvalError', true);
+    assert.strictEqual(error.constructor.name, 'EvalError');
   }
 
   sheet.cells['A1'] =
@@ -145,7 +145,7 @@ test('Prevent arbitrary js code execution', async () => {
     sheet.values['A1'];
     assert.fail('Should have thrown an error');
   } catch (error) {
-    assert.strictEqual(error.constructor.name === 'TypeError', true);
+    assert.strictEqual(error.constructor.name, 'TypeError');
   }
 });
 
