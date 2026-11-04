@@ -7,7 +7,7 @@
 [![npm downloads](https://img.shields.io/npm/dt/metacalc.svg)](https://www.npmjs.com/package/metacalc)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/metarhia/metacalc/blob/master/LICENSE)
 
-## Uasge
+## Usage
 
 ```js
 const { Sheet } = require('metacalc');
