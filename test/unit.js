@@ -46,10 +46,7 @@ test('JavaScript Math', async () => {
   assert.strictEqual(sheet.values['F1'], 10000);
   assert.strictEqual(sheet.values['G1'], Math.sin(100));
   assert.strictEqual(sheet.values['H1'], Math.sqrt(100));
-  assert.strictEqual(
-    sheet.values['I1'],
-    Math.sin(Math.sqrt(Math.pow(100, -2))),
-  );
+  assert.strictEqual(sheet.values['I1'], Math.sin(Math.sqrt(100 ** -2)));
   assert.strictEqual(
     sheet.values['J1'],
     Math.PI * Math.E * Math.LN2 * Math.LN10,
@@ -64,7 +61,7 @@ test('Correct cell values', async () => {
   assert.strictEqual(sheet.values['B1'], 100, 'Correct simple value');
 
   sheet.cells['B1'] = '=Math.pow(A1, 2)';
-  assert.strictEqual(sheet.values['B1'], Math.pow(20, 2));
+  assert.strictEqual(sheet.values['B1'], 20 ** 2);
 
   sheet.cells['B1'] = 30;
   assert.strictEqual(sheet.values['B1'], 30);
